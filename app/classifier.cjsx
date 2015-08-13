@@ -95,6 +95,10 @@ module.exports = React.createClass
     # create a new classification here
     @classifications.create currentSubject if currentSubject?
     @setState {currentSubject}
+    
+    @props.talk.type('comments').get({focus_id: currentSubject.id, focus_type: 'Subject'})
+      .then (response) ->
+        console.log response
 
   reset: ->
     annotations = @state.annotations

@@ -20,6 +20,7 @@ Main = React.createClass
   
   projects: null
   client: null
+  talk: null
   
   getInitialState: ->
     user: null
@@ -29,6 +30,8 @@ Main = React.createClass
     @client = switch config.auth_mode
       when 'panoptes' then new Panoptes config.panoptes_staging
       when 'oauth' then new Panoptes config.panoptes
+    
+    @talk = new Panoptes config.talk
       
     @projects = new Projects @client.api
     
@@ -44,7 +47,7 @@ Main = React.createClass
     @setBackground @state.project if @state.project?
     React.render <Profile project={@state.project} user={@state.user} />, document.querySelector '#profile'
     React.render <UserStatus user={@state.user} auth={@auth} />, document.querySelector '#user-status'
-    React.render <Classifier project={@state.project} user={@state.user} api={@client.api} />, document.querySelector '#classify'
+    React.render <Classifier project={@state.project} user={@state.user} api={@client.api} talk={@talk.api} />, document.querySelector '#classify'
     React.render <Page project={@state.project} url_key='science_case' />, document.querySelector '#about'
   
   render: ->
@@ -65,6 +68,7 @@ Main = React.createClass
           .style.backgroundImage = "url(#{background.src})"
           
   handleAuthChange: (e) ->
+    @talk.api.auth.checkCurrent()
     @auth
       .checkCurrent()
       .then (user) =>

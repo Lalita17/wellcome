@@ -6,6 +6,10 @@ module.exports =
   panoptes_staging:
     appID: '535759b966935c297be11913acee7a9ca17c025f9f15520e7504728e71110a27'
     host: 'https://panoptes-staging.zooniverse.org'
+  talk:
+    appID: '324bbe871acddc1457878b111a6772e25556928644c5ef9ee1784035ad0b0554'
+    host: 'https://talk.zooniverse.org'
+    root: ''
   tasks:
     health: 
       label: 'Environmental Health'
