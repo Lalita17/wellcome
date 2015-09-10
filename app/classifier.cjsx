@@ -2,6 +2,7 @@ React = require 'react'
 
 SubjectTools = require './classify/subject-tools'
 SubjectViewer = require './classify/subject-viewer'
+SubjectComments = require './classify/subject-comments'
 Annotation = require './classify/annotation'
 AnnotationToolbar = require './classify/annotation-toolbar'
 ClassificationSummary = require './classify/summary'
@@ -45,6 +46,7 @@ module.exports = React.createClass
             <div className="readymade-subject-viewer">
               <SubjectTools project={@props.project} api={@props.api} user={@props.user} subject={@state.currentSubject} />
               <SubjectViewer subject={@state.currentSubject} ref='subject_viewer' />
+              <SubjectComments subject={@state.currentSubject} talk={@props.talk} />
             </div>
         }
       </div>
@@ -95,10 +97,6 @@ module.exports = React.createClass
     # create a new classification here
     @classifications.create currentSubject if currentSubject?
     @setState {currentSubject}
-    
-    @props.talk.type('comments').get({focus_id: currentSubject.id, focus_type: 'Subject'})
-      .then (response) ->
-        console.log response
 
   reset: ->
     annotations = @state.annotations
