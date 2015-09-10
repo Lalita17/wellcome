@@ -43,11 +43,11 @@ module.exports = React.createClass
       <div className="readymade-subject-viewer-container">
         {
           if @state.currentSubject?
-            <div className="readymade-subject-viewer">
+            [<div key="viewer" className="readymade-subject-viewer">
               <SubjectTools project={@props.project} api={@props.api} user={@props.user} subject={@state.currentSubject} />
               <SubjectViewer subject={@state.currentSubject} ref='subject_viewer' />
-              <SubjectComments subject={@state.currentSubject} talk={@props.talk} />
             </div>
+            <SubjectComments key="comments" subject={@state.currentSubject} talk={@props.talk} />]
         }
       </div>
     </div>
