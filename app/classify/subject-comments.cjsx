@@ -21,8 +21,11 @@ module.exports = React.createClass
     </div>
   
   loadComments: (subject_id) ->
-    @props.talk.type('comments').get({focus_id: subject_id, focus_type: 'Subject'})
-      .then (response) =>
-        @setState comments: response
+    @props.talk.type('discussions')
+      .get({focus_id: subject_id, focus_type: 'Subject'})
+      .then ([discussion]) =>
+        discussion?.get('comments')
+          .then (comments) =>
+            @setState {comments}
   
   
