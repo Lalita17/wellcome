@@ -13,7 +13,7 @@ module.exports = React.createClass
     @loadComments newProps.subject?.id
   
   render: ->
-    <div>
+    <div className="comments">
       <h4>Comments</h4>
       <ul>
         {@state.comments.map (comment) -> <li key={comment.id}>{comment.body}</li>}
@@ -24,8 +24,11 @@ module.exports = React.createClass
     @props.talk.type('discussions')
       .get({focus_id: subject_id, focus_type: 'Subject'})
       .then ([discussion]) =>
-        discussion?.get('comments')
-          .then (comments) =>
-            @setState {comments}
+        if discussion?
+          discussion.get('comments')
+            .then (comments) =>
+              @setState {comments}
+        else
+          @setState comments: []
   
   
